@@ -1,0 +1,24 @@
+-- conectamos a MySQL con el cliente CLI y creamos la base de datos y tabla.
+$ sudo -i
+$ mysql -u root -p
+
+> drop schema Apps;
+> create schema Apps;
+
+> show databases;
+> use Apps;
+
+> create table Ratings(
+id int,
+track_name varchar(255),
+size_bytes bigint,
+price float,
+rating_count_tot float,
+rating_count_ver float,
+user_rating float,
+user_rating_ver float,
+primer_genre varchar(50)
+);
+
+> select *
+from ....;
