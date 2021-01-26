@@ -1,0 +1,14 @@
+$ conda create -n <MI_VENV> python=3
+$ conda activate <MI_VENV>
+$ conda install <paquetes>
+
+######################
+# Visual Studio Code #
+######################
+Para usar el virtualenv  en Code hay que asegurarse de que el intérprete que está usando es el del entorno virtual.
+
+Pulsar Ctrl/Cmd + Shift + P.
+
+Seleccionar el intérprete Python.
+
+Al abrir un terminal desde Code verás que se activa automáticamente el Conda venv.
