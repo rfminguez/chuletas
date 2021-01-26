@@ -1,0 +1,32 @@
+# USO SEGURO DE API KEYS (y otros secretos):
+
+Vamos a usar el módulo dotenv para trabajar con variables de entorno desde Python.
+Entre estas variables de entorno está la key.
+
+
+# Lo primero es crear un fichero .env con las variables de entornos (entre ellas las keys). 
+Lo ideal es que este fichero este con permisos restringidos. Por ejemplo:
+- el usuario que lanza la app debe tener permisos de solo lectura.
+- el resto de usuarios con ningún permiso.
+
+$ vi .env
+APIKEY="XXXX" 
+
+¡IMPORTANTE! no debe haber espacios detras del igual.
+
+
+# Luego hay que añadir el fichero .env a .gitignore para que git no lo gestione.
+
+$ vi .gitignore
+.env
+
+
+# Ya en Python usamos los módulos dotenv y os para cargar la variable de entorno...:
+
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+key = os.getenv("APIKEY")
+
