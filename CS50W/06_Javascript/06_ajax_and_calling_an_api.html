@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<title>Hello</title>
+
+		<script>
+			document.addEventListener('DOMContentLoaded', function() {
+				// 'fetch' makes an HTTP request.
+				// This is asynchronous.
+				// ".then" means "do this when the response comes back"
+				fetch('https://api.exchangeratesapi.io/latest?base=USD').then(function(response) {
+						return response.json();
+					}).then(function(data) {
+						console.log(data);
+						// 'data' is a JSON object. To access the data you can use this syntax:
+						const rate = data.rates.EUR;
+
+						document.querySelector('h1').innerHTML = `1 USD is equal to ${rate.toFixed(3)} EUR`;
+					}).catch(function(error){
+						// 'catch': what happens in case of error processing the HTTP response (i.e. timeout, the page does not exist, etc)
+						console.log('Error:', error);
+					});
+
+			});
+		</script>
+	</head>
+	<body>
+		<h1></h1>
+	</body>
+</html>

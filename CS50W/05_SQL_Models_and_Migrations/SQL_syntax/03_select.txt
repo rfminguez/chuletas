@@ -1,0 +1,13 @@
+SELECT * FROM flights;
+
+SELECT origin, destination FROM flights;
+
+SELECT * FROM flights WHERE id=3;
+
+SELECT * FROM flights WHERE origin="New York";
+
+SELECT * FROM flights WHERE duration > 500 OR destination = "Paris";
+
+SELECT * FROM flights WHERE origin IN ("New York", "Lima");
+
+SELECT * FROM flights WHERE origin LIKE "%a%";

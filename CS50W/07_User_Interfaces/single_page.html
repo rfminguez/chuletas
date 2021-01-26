@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Single Page</title>
+
+		<style>
+			/* by default the divs are invisible */
+			div {
+				display: none;
+			}
+		</style>
+
+		<script>
+
+			function showPage(page) {
+				// Make all the divs invisible
+				document.querySelectorAll('div').forEach(function(div){
+					div.style.display = 'none';
+				});
+
+				// Make the <div> visible according to the pushed button
+				document.querySelector(`#${page}`).style.display = 'block';
+			}
+
+			document.addEventListener('DOMContentLoaded', function() {
+				document.querySelectorAll('button').forEach(function(button) {
+					button.onclick = function() {
+						// access the 'data-page' property of the button
+						showPage(this.dataset.page);
+					}
+				});
+			});
+		</script>
+
+	</head>
+
+	<body>
+		<button data-page="page1">Page One</button>
+		<button data-page="page2">Page Two</button>
+		<button data-page="page3">Page Three</button>
+
+		<div id="page1">
+			<h1>This is page 1</h1>
+		</div>
+		<div id="page2">
+			<h1>This is page 2</h1>
+		</div>
+		<div id="page3">
+			<h1>This is page 3</h1>
+		</div>
+	</body>
+</html>

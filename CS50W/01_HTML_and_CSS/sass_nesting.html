@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Hello!</title>
+
+        <!--
+            SASS also helps us simplifying nesting such as:
+
+                li > ul {
+                    ...
+                }
+
+            With a cleaner syntax:
+                
+                li {
+                    ul {
+                        ...
+                    }
+                }
+        -->
+        <link rel="stylesheet" href="sass_nesting.css">
+    </head>
+    <body>
+        <div>
+            <p>This is a paragraph inside the div.</p>
+
+            List inside the div:
+            <ul>
+                <li>Item one</li>
+                <li>Item two</li>
+                <li>Item three</li>
+            </ul>
+        </div>
+
+        <p>This is a paragraph outside the div.</p>
+
+        List outside the div:
+        <ul>
+            <li>Item one</li>
+            <li>Item two</li>
+            <li>Item three</li>
+        </ul>
+
+    </body>
+</html>

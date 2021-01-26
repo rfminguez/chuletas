@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<title>Hello</title>
+
+		<script>
+
+			function salutations() {
+				let heading = document.querySelector('h1');
+
+				if (heading.innerHTML === 'Hello') {
+					heading.innerHTML='Goodbye!';
+				} else {
+					heading.innerHTML='Hello';
+				}
+			}
+
+			// IMPORTANT: wait for the content of the DOM to be loaded 
+			document.addEventListener('DOMContentLoaded', function(){
+					// We can use a function defined before (IMPORTANT: notice the asignation without parenthesis)
+					document.querySelector('button').onclick = salutations; 
+
+					// We can use an anonymous function
+					document.querySelector('form').onsubmit = function(){
+						// querySelector can use CSS syntax to select elements of the DOM
+						let name = document.querySelector('#name').value;
+
+						alert(`Hello, ${name}`);
+					};
+			});
+
+		</script>
+	</head>
+	<body>
+		<h1>Hello</h1>
+
+		<button>Click me!</button>
+
+		<form>
+			<input type="text" autofocus id="name" placeholder="Name">
+			<input type="submit">
+		</form>
+	</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<title>Hello</title>
+
+		<script>
+
+			function dom_manipulation() {
+				// 'let' is the standar way to define a variable
+				let heading = document.querySelector('h1');
+
+				if (heading.innerHTML === 'Hello') {
+					heading.innerHTML='Goodbye!';
+				} else {
+					heading.innerHTML='Hello';
+				}
+			}
+
+			
+			let counter = 0;
+			function count() {
+				// 'const' tells that the variable cannot change
+				const heading = document.querySelector('h1');
+
+				heading.innerHTML = counter;
+
+				// This is a template literal. It is similar to Python format strings
+				alert(`Count is now ${counter}`);
+
+				counter += 1;
+			}			
+			
+		</script>
+	</head>
+	<body>
+		<h1>Hello</h1>
+
+		<button onclick="dom_manipulation()">Click me!</button>
+		
+		<button onclick="count()">Count</button>
+	</body>
+</html>

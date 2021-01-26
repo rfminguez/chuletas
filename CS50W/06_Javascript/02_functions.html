@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<title>Hello</title>
+
+		<script>
+			function hello() {
+				alert("Hello world");
+			}
+
+			// initialize a variable using "let"
+			let counter = 0;
+			function count() {
+				counter++;
+				alert(counter);
+			}
+
+			function goodbye() {
+				// DOM Manipulation
+				if (document.querySelector('h1').innerHTML === 'Hello') {
+					document.querySelector('h1').innerHTML='Goodbye!';
+				} else {
+					alert("Farewell");
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<h1>Hello</h1>
+
+		<button onclick="hello()">Hello</button>
+
+		<button onclick="count()">Counter</button>
+
+		
+		<button onclick="goodbye()">Goodbye</button>
+	</body>
+</html>

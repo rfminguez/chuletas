@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>CSS Animation</title>
+
+		<style>
+			@keyframes grow_this_text {
+				from {
+					font-size: 20px;
+				}
+				to {
+					font-size: 100px;
+				}
+			}
+
+			@keyframes move_this_text {
+				0% {
+					left: 0%;
+				}
+				50% {
+					left: 50%;
+				}
+				100% {
+					left: 0%;
+				}
+			}
+
+			h1 {
+				animation-name: grow_this_text;
+				animation-duration: 2s;
+				animation-fill-mode: forward;
+				animation-iteration-count: 2;
+			}
+			
+			h2 {
+				position: relative;
+
+				animation-name: move_this_text;
+				animation-duration: 2s;
+				animation-fill-mode: forward;
+				animation-iteration-count: infinite;
+			}
+
+
+			@keyframes hide_this_div{
+				from {
+					opacity: 1;
+				}
+				to {
+					opacity: 0;
+				}
+			}
+
+			.container {
+				background-color: green;
+				padding: 20px;
+				margin-bottom: 10px;
+
+				animation-name: hide_this_div;
+				animation-duration: 2s;
+				animation-fill-mode: forward;
+				animation-play-state: paused;
+			}
+
+		</style>
+
+		<script>
+			document.addEventListener('DOMContentLoaded', function() {
+
+				document.querySelector('#stop').onclick = () => {
+					const h2 = document.querySelector('h2');
+					const button = document.querySelector('#stop');
+
+					if (h2.style.animationPlayState === 'paused') {
+						h2.style.animationPlayState = 'running';
+						button.innerText= "Pause"
+					} else {
+						h2.style.animationPlayState = 'paused';
+						button.innerText = "Start"
+					}
+				}
+
+				document.querySelector('#hide').onclick = () => {
+					const div = document.querySelector(".container");
+
+					div.style.animationPlayState = 'running';
+				}
+
+				document.addEventListener('click', function(event){
+					const element = event.target;
+					if (element.className === 'hide') {
+						element.parentElement.style.animationPlayState = 'running';
+						element.parentElement.addEventListener('animationend', function(){
+							element.parentElement.remove();
+						});
+					}
+				});
+			});
+		</script>
+
+	</head>
+
+	<body>
+
+		<h1>Welcome!</h1>
+
+		<hr>
+
+		<button id="stop">Pause</button>
+		<h2>This is CSS animation</h2>
+
+		<hr>
+
+		<div class="container">
+			Hide me!
+			<button id="hide">Hide</button>
+		</div>
+	</body>
+</html>

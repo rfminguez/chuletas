@@ -1,0 +1,13 @@
+-- Create a SQLite database from CLI
+
+$ touch flights.sql
+
+$ sqlite3 flights.sql
+sqlite> CREATE TABLE ...;
+sqlite> .tables
+
+sqlite> INSERT INTO ...;
+
+sqlite> .mode columns
+sqlite> .headers yes
+sqlite> SELECT ...;

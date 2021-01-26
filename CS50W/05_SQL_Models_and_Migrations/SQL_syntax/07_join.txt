@@ -1,0 +1,3 @@
+SELECT first_name, origin, destination
+FROM flights JOIN passengers
+ON passeners.flight_id = flights.id;

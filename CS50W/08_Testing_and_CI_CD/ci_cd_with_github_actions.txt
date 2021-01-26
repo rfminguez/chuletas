@@ -1,0 +1,30 @@
+# This is the CI (Continuous Integration) part of CI / CD
+
+# The config is in a YAML File:
+name -> name of the github action
+on -> git command that triggers the action
+jobs -> the actual workflow of tasks that will automatically take place
+run -> list of commands to run (usually 'pip install' the modules the project needs and 'python manage.py test' if it is a django project)
+
+
+$ vi .github/workflows/ci.yml
+name: Testing
+on: push
+
+jobs:
+	test_project:
+		runs-on: ubuntu-latest
+		steps:
+		- uses: actions/checkout@v2
+		- name: Run Django unit tests
+		  run: |
+			pip3 install --user django pandas numpy etc. 
+			python3 manage.py test
+
+$ git status
+$ git add .
+$ git commit -m "xxxx"
+$ git push
+
+https://github.com/USER_NAME/REPO_NAME
+--> Actions Tab

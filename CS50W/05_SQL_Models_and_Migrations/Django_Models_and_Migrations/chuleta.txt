@@ -1,0 +1,116 @@
+# Create a django project and django app
+$ django-admin startproject airline
+
+# Create a django app
+$ cd airline
+$ python manage.py startapp flights
+
+# Install app
+$ vi airline/settings.py
+...
+INSTALLED_APPS = [
+    'flights',
+    ...
+]
+...
+
+# Configure endpoints
+$ vi airline/urls.py
+...
+urlpatterns = [
+    path("flights/", include("flights.urls"))
+]
+
+$ vi flights/urls.py
+from django.urls import path
+from . import views
+
+urlpatterns = [
+   ... 
+]
+
+# Also create views, templates, etc.
+
+
+# Create models
+vi flights/models.py
+...
+class Airport(models.Model):
+    code = models.CharField(max_length=3)
+    city = models.CharField(max_length=64)
+
+    def __str__(self):
+        return f"{self.city}: ({self.code})"
+
+
+class Flight(models.Model):
+    origin = models.ForeignKey(Airport, on_delete=models.CASCADE, related_name="departures") 
+    destination = models.ForeignKey(Airport, on_delete=models.CASCADE, related_name="arrivals") 
+    duration = models.IntegerField()
+
+    def __str__(self):
+        return f"{self.id}: from {self.origin} to {self.destination}"
+
+
+class Passenger(models.Model):
+    first = models.CharField(max_length=64)
+    last = models.CharField(max_length=64)
+    flights = models.ManyToManyField(Flight, blank=True, related_name="passenger")
+
+    def __str__(self):
+        return f"{self.first} {self.last}"
+
+
+# Create Migrations:
+# - based on models.py, create a migration file where there are changes that I want to apply to my db.
+# - then Migrate them, telling django to take the changes and actually applly them to the db.
+
+# A migration has two steps in CLI:
+$ python manage.py makemigrations
+$ python manage.py migrate
+
+$ ls -l *.sqlite3
+
+
+# Use Models to Query a Database 
+from flights.models import Flight
+
+f = Flight(origin="New York", destination="London", duration=415)
+f.save()
+
+Flight.objects.all()
+
+flight = flights.first()
+print(flight.id)
+print(flight.pk)
+print(flight.origin)
+print(flight.duration)
+
+flight.delete()
+
+jfk = Airport(code="JFK", city="New York")
+jfk.save()
+lhr = Airport(code="LHR", city="London")
+lhr.save()
+cdg = Airport(code="CDG", city="Paris")
+cdg.save()
+nrt = Airport(code="NRT", city="Tokyo")
+nrt.save()
+
+f = Flight(origin=jfk, destination=lhr, duration=415)
+f.save()
+
+f.origin
+f.origin.city
+f.origin.code
+lhr.arrivals.all()
+
+f = Flight.objects.get(pk=1)
+f = Flight.objects.get(id=1)
+
+flight = Flight.objects.get(pk=1)
+passenger = Passenger.objects.get(pk=3)
+passenger.flights.add(flight)
+non_passengers = Passenger.objects.exclude(flights=flight).all()
+
+

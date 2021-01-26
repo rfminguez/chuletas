@@ -1,0 +1,56 @@
+# This is the CD (Continuous Deployment) part of CI / CD
+
+##########
+# DOCKER #
+##########
+
+# A dockerfile contains:
+FROM -> a docker image in which I am going to base this instructions
+COPY -> files to be copied to the Docker container
+		(COPY origin_dir_in_my_machine destination_dir_in_docker_container)
+WORKDIR -> set the working directory inside the Docker container
+RUN -> list of commands to run before launching the project (usually packages and dependencies)
+CMD -> command to launch the project
+
+
+$ vi PROJECT_NAME/Dockerfile
+FROM python:3
+COPY . /usr/src/app
+WORKDIR /usr/src/app
+RUN pip install -r requirements.txt
+CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000"]
+
+
+##################
+# DOCKER COMPOSE #
+##################
+When you have various containers in the same project (i.e. one of the for the actual Django project and another one for the Postgre database).
+
+# A docker-compose is yaml file.
+
+$ vi PROJECT_NAME/docker-compose.yml
+version: '3'
+
+services:
+	db:
+		image: postgres
+
+	web:
+		build: .
+		volumes:
+			- .:/usr/src/app
+		ports:
+			- "8000:8000"
+
+$ docker-compose up
+
+# Now we can access using a browser:
+https://0.0.0.0:8000
+
+
+###################
+# Docker commands #
+###################
+$ docker ps
+$ docker exec -it <CONTAINER_ID> bash -l 
+

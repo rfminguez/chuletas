@@ -1,0 +1,177 @@
+# 01 Create a PROJECT
+$ django-admin startproject PROJECT_NAME
+$ cd PROJECT_NAME
+
+# ... run server to to test
+$ python manage.py runserver
+
+# 02 Create APPs 
+$ python manage.py startapp APP_NAME 
+
+# 0201 "Install" the new APP in PROJECT_NAME
+$ vi PROJECT_NAME/settings.py
+...
+INSTALLED_APPS = [
+    ...
+    'APP_NAME',
+    ...
+]
+...
+
+# 0202 Create VIEWS 
+$ vi APP_NAME/views.py
+...
+from django.http import HttpResponse
+...
+
+def VIEW_NAME(request):
+    return HttpResponse("Hello, World!")
+
+# 0203 Configure URLs in APP_NAME
+$ vi APP_NAME/urls.py
+from django.urls import path
+from . import views
+
+app_name = "APP_NAME"
+
+urlpatterns = [
+    path("", views.VIEW_NAME, name="new_view")
+]
+
+# 0204 Configure URLs in PROJECT_NAME
+$ vi PROJECT_NAME/urls.py
+...
+from django.urls import include
+
+urlpatterns = [
+    ...
+    path("app_name/", include("APP_NAME.urls"))
+]
+
+# 0205 Run the server 
+$ python manage.py runserver
+
+# 03 Create TEMPLATES
+$ mkdir APP_NAME/templates
+$ vi APP_NAME/templates/DIR_NAME/TEMPLATE_NAME.html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Hello!</title>
+    </head>
+    <body>
+        <h1>Hello, world!</h1>
+    </body>
+</html>
+
+$ vi APP_NAME/views.py
+def ENDPOINT_NAME(request):
+    return render(request, "DIR_NAME/TEMPLATE_NAME.html")
+
+$ vi APP_NAME/urls.py
+urlpatterns = [
+    ...
+    path("template", views.ENDPOINT_NAME, name="ENDPOINT_NAME")
+    ...
+]
+
+
+# 04 TEMPLATE INHERITANCE
+$ vi APP_NAME/templates/DIR_NAME/TEMPLATE_NAME.html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Template Inheritance Example</title>
+    </head>
+    <body>
+        {% block BLOCK_NAME %}
+        {% endblock %}
+    </body>
+</html>
+
+$ vi APP_NAME/templates/DIR_NAME/VIEW_NAME.html
+{% extends "DIR_NAME/TEMPLATE_NAME.html"  %}
+
+{% block BLOCK_NAME %}
+<ul>
+    <li>Item</li>
+    <li>Another item</li>
+    <li>Yet another item</li>
+</ul>
+{% endblock %}
+
+
+# 05 CSRF VALIDATION IN FORMS
+{% extends "tasks/layout.html" %}
+
+{% block body %}
+<form action="{% url 'APP_NAME:ENDPOINT_NAME' %}" method="POST">
+    {% csrf_token %}
+    <input type="text" name="FIELD_NAME">
+    <input type="submit">
+</form>
+{% endblock %}
+
+
+# 06 DJANGO GENERATED FORMS
+# Django can create forms for us.
+# So you don't need to edit an HTML template each time you add or remove a field. 
+# Also adds validation and other things to make things easier when working with forms.
+
+$ vi APP_NAME/views.py
+...
+from django import forms
+...
+class FORM_CLASS(forms.Form):
+    TEXT_FIELD_NAME = forms.CharField(label="Text Field Name")
+    # IMPORTANT: this is client-side validation. NEVER FORGET to do server-side validation (Django also helps us with it).
+    INT_FIELD_NAME = forms.IntegerField(label="Integer Field Name", min_value=1, max_value=10)
+...
+def ENDPOINT_NAME(request):
+    if request.method == "POST":
+        form = FORM_CLASS(request.POST)
+        # IMPORTANT: this is server-side validation. Django helps us to automate this task.
+        if form.is_valid():
+            # save data to a list, dictionary, database or do something else with the data.
+            ...
+            # once you process the data, redirect to the index page (this is optional)
+            from django.http import HttpResponseRedirect
+            from django.urls import reverse
+            return HttpResponseRedirect(reverse("APP_NAME:ENDPOINT_NAME"))
+        else:
+            return render(request, "DIR_NAME/TEMPLATE_NAME.html", {
+                "FORM_NAME": form
+            })
+
+    return render(request, "DIR_NAME/TEMPLATE_NAME.html", {
+        "FORM_NAME": FORM_CLASS()
+    })
+...
+
+$ vi APP_NAME/DIR_NAME/TEMPLATE_NAME.html
+...
+<form action="xxx" method="yyy">
+    {% csrf_token %}
+
+    {{ FORM_NAME }}
+
+    <input type="submit">
+</form>
+...
+
+
+# 07 SESSIONS
+
+$ vi APP_NAME/views.py
+...
+def ENDPOINT_NAME(request):
+    if "MY_SESSION_VARIABLE" not in request.session:
+        request.session["MY_SESSION_VARIABLE"] = []
+
+    return render(request, "DIR_NAME/TEMPLATE_NAME.html", {
+        "MY_SESSION_VARIABLE": request.session["MY_SESSION_VARIABLE"]
+    })
+
+# You must restart the server and run "migrate" in order to create empty D:jango tables¿?
+$ python manage.py migrate
+$ python manage.py runserver

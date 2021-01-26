@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Attribute Selector CSS</title>
+
+        <!--
+            -------------------
+            Other CSS Selectors
+            -------------------
+             a, b   Multiple Element Selector
+             a b    Descendant Selector
+             a > b  Child Selector
+             a + b  Adjacent Sibling Selector
+             [a=b]  Attribute Selector
+             a:b    Pseudoclass Selector
+             a::b   Pseudoelement Selector
+
+        -->
+        <style>
+            a {
+                color: blue;
+            }
+
+            a[href="https://www.facebook.com"] {
+                color: red;
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <ul>
+            <li><a href="https://www.google.com">Google</a></li>
+            <li><a href="https://www.facebook.com">Facebook</a></li>
+            <li><a href="https://www.amazon.com">Amazon</a></li>
+        </ul>
+
+    </body>
+</html>
+
+

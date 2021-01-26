@@ -1,0 +1,18 @@
+# Crear un superusuario
+
+$ python manage.py createsuperuser
+
+
+# Para gestionar Models desde la pagina de admin. Esto facilita las tareas de añadir entradas a la base de datos.
+
+$ vi admin.py
+from .models import MODEL_NAME1, MODEL_NAME2, ...
+
+admin.site.register(MODEL_NAME1)
+admin.site.register(MODEL_NAME2)
+...
+
+
+# Conectarse a esta URL (la pagina de admin por defecto):
+localhost:8000/admin
+
