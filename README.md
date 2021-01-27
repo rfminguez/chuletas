@@ -8,7 +8,8 @@ Uso básico de varias herramientas relacionadas con el análisis de datos.
 ## MongoDB
 - [MongoDB y Geoquery](./mongodb_y_geoloc.ipynb)
 ## Web Scraping 
-- [Web scraping con beautifulsoup y selectores CSS](./web_scraping_beautifulsoup.ipynb)
+- [Web scraping con beautifulsoup](./web_scraping_beautifulsoup.ipynb)
+- [Web scraping con selenium](./web_scraping_selenium.ipynb)
 ## Django
 - [Crear un Proyecto paso a paso](./CS50W/04_Django/chuleta.txt)
 - [Models y Migrations](./CS50W/05_SQL_Models_and_Migrations/Django_Models_and_Migrations/chuleta.txt)
